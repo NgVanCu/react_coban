@@ -1,0 +1,41 @@
+import './todo.css';
+import reactLogo from '../../assets/react.svg';
+import TodoData from './TodoData';
+import TodoNew from './TodoNew';
+import { useState } from 'react';
+
+const TodoApp = () =>{
+  const [todoList, setTodoList] = useState([])
+
+  const randomIntFromInterval = (min, max) => { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  
+  const addNewTodo = (name) =>{
+    const newTodo = {
+      id:randomIntFromInterval(1,100000),
+      name:name
+    }
+    setTodoList([...todoList, newTodo])
+
+  }
+  const deleteTodo = (id) =>{
+    setTodoList(todoList.filter(item => item.id !== id))
+  }
+
+  return (
+    <>
+      <div className="todo-container">
+        <div className="todo-title">Todo List</div>
+        <TodoNew addNewTodo = {addNewTodo}/>
+        {todoList.length > 0 ? <TodoData todoList={todoList} deleteTodo = {deleteTodo}/> : 
+          <div className='todo-image'>
+            <img src={reactLogo} className='logo'/>
+          </div>
+        }
+      </div>       
+    </>
+  )
+}
+
+export default TodoApp
