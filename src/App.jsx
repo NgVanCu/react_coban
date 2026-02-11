@@ -19,13 +19,15 @@ const App = () =>{
     setTodoList([...todoList, newTodo])
 
   }
-
+  const deleteTodo = (id) =>{
+    setTodoList(todoList.filter(item => item.id !== id))
+  }
   return (
     <>
       <div className="todo-container">
         <div className="todo-title">Todo List</div>
         <TodoNew addNewTodo = {addNewTodo}/>
-        {todoList.length > 0 ? <TodoData todoList={todoList}/> : 
+        {todoList.length > 0 ? <TodoData todoList={todoList} deleteTodo = {deleteTodo}/> : 
           <div className='todo-image'>
             <img src={reactLogo} className='logo'/>
           </div>
